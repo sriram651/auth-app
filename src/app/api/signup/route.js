@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import User from "@/models/userModel";
 import bcryptjs from "bcryptjs";
 import { connect } from "@/dbConfig/dbConfig";
+import { sendEmail } from "@/helpers/mailer";
 
 connect();
 
@@ -27,6 +28,9 @@ export async function POST(request) {
         // Create the user with the values, and save it in the mongodb
         const newUser = new User({ email, username, password: hashedPassword });
         const savedUser = await newUser.save();
+
+        // Verify Email
+        await sendEmail(email, "VERIFY", savedUser._id);
         
         // Return the success response along with the new user.
         return NextResponse.json({ message: "User added", success: true, user: savedUser }, { status: 200 });
