@@ -1,5 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
-
+import { NextResponse } from "next/server";
 import User from "@/models/userModel";
 import bcryptjs from "bcryptjs";
 import { connect } from "@/dbConfig/dbConfig";
@@ -30,7 +29,7 @@ export async function POST(request) {
         const savedUser = await newUser.save();
 
         // Verify Email
-        await sendEmail(email, "VERIFY", savedUser._id);
+        await sendEmail(email, "VERIFY", savedUser._id, savedUser.username);
         
         // Return the success response along with the new user.
         return NextResponse.json({ message: "User added", success: true, user: savedUser }, { status: 200 });
