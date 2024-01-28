@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
 import Link from 'next/link';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation';
 
 export default function VerifyEmail() {
     const { get } = useSearchParams();
+    const urlToken = get("token");
     const [token, setToken] = useState();
     const [isVerified, setIsVerified] = useState(false);
     const [error, setError] = useState(false);
@@ -30,17 +31,17 @@ export default function VerifyEmail() {
     }, [token]);
 
     useEffect(() => {
-        const urlToken = get("token");
         if (Boolean(urlToken)) {
-            console.log(urlToken);
             setToken(urlToken);
         }
-    }, []);
+    }, [urlToken]);
     return (
         <div className='w-full min-h-screen flex flex-col justify-center items-center gap-4'>
             <h1 className='text-3xl font-medium'>Verify Email</h1>
 
-            <h2 className='w-max max-w-full p-2 bg-orange-500 text-black rounded-lg'>{Boolean(token) ? token : "No token"}</h2>
+            <h2 className='w-max max-w-full p-2 bg-orange-500 text-black rounded-lg'>
+                <Suspense fallback={<span>Please wait, loading the token...</span>}>{Boolean(token) ? token : "No token"}</Suspense>
+            </h2>
 
             {isVerified ? (
                 <div>
