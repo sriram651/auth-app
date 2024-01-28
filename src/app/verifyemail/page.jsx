@@ -7,8 +7,7 @@ import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 
 export default function VerifyEmail() {
-    const { get } = useSearchParams();
-    const urlToken = get("token");
+
     const [token, setToken] = useState();
     const [isVerified, setIsVerified] = useState(false);
     const [error, setError] = useState(false);
@@ -30,17 +29,18 @@ export default function VerifyEmail() {
         }
     }, [token]);
 
-    useEffect(() => {
-        if (Boolean(urlToken)) {
-            setToken(urlToken);
-        }
-    }, [urlToken]);
     return (
         <div className='w-full min-h-screen flex flex-col justify-center items-center gap-4'>
             <h1 className='text-3xl font-medium'>Verify Email</h1>
 
             <h2 className='w-max max-w-full p-2 bg-orange-500 text-black rounded-lg'>
-                <Suspense fallback={<span>Please wait, loading the token...</span>}>{Boolean(token) ? token : "No token"}</Suspense>
+                <Suspense
+                    fallback={
+                        <span>Please wait, loading the token...</span>
+                    }
+                >
+                    <ShowToken token={token} setToken={setToken} />
+                </Suspense>
             </h2>
 
             {isVerified ? (
@@ -54,5 +54,22 @@ export default function VerifyEmail() {
                 ) : null
             )}
         </div>
+    )
+}
+
+function ShowToken({ token, setToken }) {
+    const { get } = useSearchParams();
+    const urlToken = get("token");
+
+    useEffect(() => {
+        if (Boolean(urlToken)) {
+            setToken(urlToken);
+        }
+    }, [urlToken]);
+    
+    return (
+        <>
+            {Boolean(token) ? token : "No token"}
+        </>
     )
 }
