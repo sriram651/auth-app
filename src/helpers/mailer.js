@@ -30,7 +30,7 @@ export async function sendEmail(email, emailType, userId) {
         });
 
         const mailOptions = {
-            from: "sriramdf.4038@gmail.com",
+            from: "admin@authapp.com",
             to: email,
             subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
             html: `<p><a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${emailType === "VERIFY" ? "verify your email." : "reset your password."}</p>`
