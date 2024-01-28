@@ -1,3 +1,4 @@
+import { RESET_PASSWORD_TEMPLATE } from '@/app/templates/resetPassword';
 import User from '@/models/userModel';
 import { VERIFY_EMAIL_TEMPLATE } from '@/app/templates/emailVerify';
 import bcryptjs from 'bcryptjs';
@@ -35,7 +36,7 @@ export async function sendEmail(email, emailType, userId, username) {
             from: "sriram.sf4038@gmail.com",
             to: email,
             subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
-            html: VERIFY_EMAIL_TEMPLATE(username, hashedToken),
+            html: emailType === "VERIFY" ? VERIFY_EMAIL_TEMPLATE(username, hashedToken) : RESET_PASSWORD_TEMPLATE(username, hashedToken),
         }
 
         const mailResponse = await transport.sendMail(mailOptions);

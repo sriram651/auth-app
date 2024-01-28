@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import Head from 'next/head';
 import Link from 'next/link';
@@ -58,7 +58,10 @@ export default function LoginPage() {
           placeholder='Password'
           className='w-max px-4 py-2 bg-transparent outline-none border border-black dark:border-white rounded-lg'
         />
-        <Link href="/signup">Don&apos;t have an account?</Link>
+        <div className="flex flex-row justify-center items-center gap-6">
+          <Link href="/signup">Don&apos;t have an account?</Link>
+          <Link href="/forgotpassword">Forgot password?</Link>
+        </div>
         <button type="submit" className='w-max px-6 py-2 bg-blue-600' disabled={loading}>Login</button>
       </form>
     </>
