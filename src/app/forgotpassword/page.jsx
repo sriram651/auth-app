@@ -4,24 +4,21 @@ import React, { useState } from 'react'
 
 import Head from 'next/head'
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import showToast from '@/helpers/toast';
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const notify = (message) => toast(message, { duration: 2000, position: 'bottom' });
-
-
     async function generateResetLink(e) {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post("/api/forgotpassword", { email });
-            notify("Password reset link has been sent, Check your inbox!")
+            await axios.post("/api/forgotpassword", { email });
+            showToast("Password reset link has been sent, Check your inbox!", 4000, "top-right", "success");
         } catch ({ response: { data: { error } } }) {
             if (error.includes("not found")) {
-                notify("User not found, Kindly register...");
+                showToast("User not found!", 4000, "top-right", "error");
             }
         } finally {
             setLoading(false);

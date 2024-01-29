@@ -4,15 +4,13 @@ import React, { useEffect, useState } from 'react'
 
 import Link from 'next/link';
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import showToast from '@/helpers/toast';
 import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const notify = (message) => toast(message, { duration: 2000, position: 'bottom' });
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -30,12 +28,12 @@ export default function ProfilePage() {
   async function onLogout() {
     setLoading(true);
     try {
-      const response = await axios.request("/api/logout");
-      notify("Logout successful");
+      await axios.request("/api/logout");
+      showToast("You've been logged out successfully!", 3000, "top-right", "success");
       router.push("/login");
     } catch (error) {
       console.log(error);
-      notify("Logout failed!");
+      showToast("Logout failed!", 3000, "top-right", "error");
     } finally {
       setLoading(false);
     }

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import showToast from '@/helpers/toast';
 import { useRouter } from 'next/navigation';
 
 export default function ResetPassword() {
@@ -17,11 +17,10 @@ export default function ResetPassword() {
         confirmPassword: "",
     });
     const [loading, setLoading] = useState(false);
-    const notify = (message) => toast(message, { duration: 2000, position: 'bottom' });
 
     useEffect(() => {
         const urlToken = window.location.search?.split("=")[1];
-        if(Boolean(urlToken)) {
+        if (Boolean(urlToken)) {
             setToken(urlToken);
         }
     }, []);
@@ -29,15 +28,15 @@ export default function ResetPassword() {
     async function onResetPassword(e) {
         e.preventDefault();
         try {
-            const response = await axios.post("/api/resetpassword", { token: token, newPassword: user.password });
-            notify("Password reset successful!")
+            await axios.post("/api/resetpassword", { token: token, newPassword: user.password });
+            showToast("Password has been reset successfully!", 4000, "top-right", "success");
             router?.push("/login");
         } catch ({ response: { data: { error } } }) {
             if (error.includes("Invalid URL")) {
-                notify("Invalid URL!");
-                router.push("/login");
+                showToast("Access denied, Get reset link to proceed!", 4000, "top-right", "error");
+                router.push("/forgotpassword");
             } else {
-                notify("Something went wrong, please try again later!");
+                showToast("Something went wrong, please try again later!", 4000, "top-right", "error");
             }
         } finally {
             setLoading(false);
