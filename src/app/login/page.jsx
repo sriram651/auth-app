@@ -19,6 +19,7 @@ export default function LoginPage() {
   async function onSignup(e) {
     e.preventDefault();
     try {
+      setLoading(true);
       await axios.post("/api/login", user);
       showToast("Logged in successfully!", 3000, "top-right", "success");
       router?.push("/profile");
