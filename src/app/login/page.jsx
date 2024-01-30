@@ -42,7 +42,7 @@ export default function LoginPage() {
       </Head>
       <div className='w-full min-h-svh flex flex-col justify-center items-center'>
         <form
-          className='w-11/12 md:w-full max-w-md bg-gradient-to-br from-[#65B0F8] via-[#4C3BA0] to-[#9A61BD] text-white backdrop-blur-xl p-6 md:p-10 rounded-2xl h-max flex flex-col justify-center items-start gap-4 md:gap-8 shadow-lg shadow-black/50'
+          className='w-11/12 md:w-full max-w-md bg-gradient-to-br from-[#65B0F8] via-[#4C3BA0] to-[#9A61BD] text-white backdrop-blur-xl p-6 md:p-10 rounded-2xl h-max flex flex-col justify-center items-start gap-4 md:gap-8 shadow-lg shadow-black/50 animate-openUp'
           onSubmit={onSignup}
           // style={{
           //   background: "linear-gradient(90deg, rgb(249, 115, 22, 0), rgb(249, 115, 22, 0), rgb(157, 23, 77, 0)",

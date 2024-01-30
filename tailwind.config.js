@@ -13,6 +13,21 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+    keyframes: {
+      openUp: {
+        "0%": {
+          opacity: 0,
+          transform: "translateY(20%)"
+        },
+        "100%": {
+          opacity: 1,
+          transform: "translateY(0%)"
+        }
+      },
+    },
+    animation: {
+      openUp: "openUp 0.3s ease-in",
+    }
   },
   plugins: [],
 };
