@@ -6,8 +6,16 @@ export function middleware(request) {
 
     const token = request.cookies.get("token")?.value || "";
 
+    if (path === "/") {
+        if (Boolean(token)) {
+            return NextResponse.redirect(new URL("/profile", request.nextUrl))
+        }
+
+        return NextResponse.redirect(new URL("/login", request.nextUrl));
+    }
+
     if (isPublicPath && Boolean(token)) {
-        return NextResponse.redirect(new URL("/", request.nextUrl));
+        return NextResponse.redirect(new URL("/profile", request.nextUrl));
     }
 
     if (!isPublicPath && !Boolean(token)) {
