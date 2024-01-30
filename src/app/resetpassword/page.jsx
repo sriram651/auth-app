@@ -47,35 +47,45 @@ export default function ResetPassword() {
             <Head>
                 <title>Password Reset</title>
             </Head>
-            <form className='w-full min-h-screen flex flex-col justify-center items-center gap-2' onSubmit={onResetPassword}>
-                <h1>Reset your password</h1>
-                <label htmlFor="username">Email</label>
-                <input
-                    type="text"
-                    value={user.email}
-                    onChange={(e) => setUser((prev) => { return { ...prev, email: e.target.value } })}
-                    placeholder='Email Id'
-                    className='w-max px-4 py-2 bg-transparent outline-none border border-black dark:border-white rounded-lg'
-                />
-                <label htmlFor="username">Password</label>
-                <input
-                    type="password"
-                    value={user.password}
-                    onChange={(e) => setUser((prev) => { return { ...prev, password: e.target.value } })}
-                    placeholder='Password'
-                    className='w-max px-4 py-2 bg-transparent outline-none border border-black dark:border-white rounded-lg'
-                />
-                <label htmlFor="username">Confirm Password</label>
-                <input
-                    type="password"
-                    value={user.confirmPassword}
-                    onChange={(e) => setUser((prev) => { return { ...prev, confirmPassword: e.target.value } })}
-                    placeholder='Confirm Password'
-                    className='w-max px-4 py-2 bg-transparent outline-none border border-black dark:border-white rounded-lg'
-                />
-                <Link href="/login">Login</Link>
-                <button type="submit" className='w-max px-6 py-2 bg-blue-600 rounded-lg' disabled={loading}>{loading ? "Please wait..." : "Reset"}</button>
-            </form>
+            <div className='w-full min-h-svh flex flex-col justify-center items-center'>
+                <form
+                    className='w-11/12 md:w-full max-w-md bg-gradient-to-br from-[#65B0F8] via-[#4C3BA0] to-[#9A61BD] text-white backdrop-blur-xl p-6 md:p-10 rounded-2xl h-max flex flex-col justify-center items-start gap-4 md:gap-6 shadow-lg shadow-black/50 animate-openUp'
+                    onSubmit={onResetPassword}
+                >
+                    <h1 className='text-2xl font-medium text-center w-full'>Reset your password</h1>
+                    <div className="w-full flex flex-col justify-center items-start gap-0">
+                        <label className='text-base md:text-lg mt-4' htmlFor="email">Email</label>
+                        <input
+                            required
+                            type="email"
+                            value={user.email}
+                            onChange={(e) => setUser((prev) => { return { ...prev, email: e.target.value } })}
+                            placeholder='example@mail.com'
+                            className='w-full px-4 py-2 bg-transparent outline-none border border-white/40 focus:border-white rounded-lg'
+                        />
+                        <label className='text-base md:text-lg mt-4' htmlFor="password">Password</label>
+                        <input
+                            required
+                            type="password"
+                            value={user.password}
+                            onChange={(e) => setUser((prev) => { return { ...prev, password: e.target.value } })}
+                            placeholder='New Password'
+                            className='w-full px-4 py-2 bg-transparent outline-none border border-white/40 focus:border-white rounded-lg'
+                        />
+                        <label className='text-base md:text-lg mt-4' htmlFor="confirmpassword">Confirm Password</label>
+                        <input
+                            required
+                            type="password"
+                            value={user.confirmPassword}
+                            onChange={(e) => setUser((prev) => { return { ...prev, confirmPassword: e.target.value } })}
+                            placeholder='Confirm Password'
+                            className='w-full px-4 py-2 bg-transparent outline-none border border-white/40 focus:border-white rounded-lg'
+                        />
+                    </div>
+                    <Link href="/login">Remember your password? Login now</Link>
+                    <button type="submit" className='w-full px-6 py-3 bg-white/30 backdrop-blur-xl hover:text-black focus:text-black rounded-xl outline-none' disabled={loading}>{loading ? "Please wait..." : "Reset"}</button>
+                </form>
+            </div>
         </>
     )
 }

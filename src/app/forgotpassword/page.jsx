@@ -29,18 +29,29 @@ export default function ForgotPassword() {
             <Head>
                 <title>Forgot Password</title>
             </Head>
-            <form className='w-full min-h-screen flex flex-col justify-center items-center gap-2' onSubmit={generateResetLink}>
-                <h1>Enter your email to generate reset link</h1>
-                <label htmlFor="username">Email</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder='Enter your Email...'
-                    className='w-max px-4 py-2 bg-transparent outline-none border border-black dark:border-white rounded-lg'
-                />
-                <button type="submit" className='w-max px-6 py-2 bg-blue-600 rounded-lg' disabled={loading}>{loading ? "Please wait..." : "Generate Link"}</button>
-            </form>
+            <div className='w-full min-h-svh flex flex-col justify-center items-center'>
+                <form
+                    className='w-11/12 md:w-full max-w-md bg-gradient-to-br from-[#65B0F8] via-[#4C3BA0] to-[#9A61BD] text-white backdrop-blur-xl p-6 md:p-10 rounded-2xl h-max flex flex-col justify-center items-start gap-2 md:gap-6 shadow-lg shadow-black/50 animate-openUp'
+                    onSubmit={generateResetLink}
+                >
+                    <div className='w-full'>
+                        <h1 className='text-xl font-medium text-center w-full'>Forgot password?</h1>
+                        <p className='text-sm md:text-base font-thin text-center w-full'>Enter your email to generate reset link</p>
+                    </div>
+                    <div className="w-full flex flex-col justify-center items-start gap-0">
+                        <label className='text-base md:text-lg mt-1 md:mt-3' htmlFor="email">Email</label>
+                        <input
+                            required
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder='Enter your Email...'
+                            className='w-full px-4 py-2 bg-transparent outline-none border border-white/40 focus:border-white rounded-lg'
+                        />
+                    </div>
+                    <button type="submit" className='w-full px-6 py-3 bg-white/30 backdrop-blur-xl hover:text-black focus:text-black rounded-xl outline-none' disabled={loading}>{loading ? "Please wait..." : "Generate Link"}</button>
+                </form>
+            </div>
         </>
     )
 }
